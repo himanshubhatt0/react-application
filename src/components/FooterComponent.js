@@ -13,7 +13,7 @@ function Footer(props)
                         <li><Link to="/home">Home</Link></li>
                         <li><Link to="/aboutus">Aboutus</Link></li>
                         <li><Link to="/menu">Menu</Link></li>
-                        <li><Link to="/contectus">Contactus</Link></li>
+                        <li><Link to="/contactus">Contactus</Link></li>
                         </ul>
                     </div>
                     <div className="col-7 col-sm-5">
