@@ -3,6 +3,7 @@ import {Card,CardBody,CardImg,CardText,CardTitle,BreadcrumbItem,Breadcrumb, Butt
 import {Link} from 'react-router-dom';
 import { render } from '@testing-library/react';
 import { LocalForm,Control,Errors} from 'react-redux-form';
+import { addComment } from '../redux/ActionCreaters';
     function RenderDish({dish}){
             return(
                 <div className="col-12 col-md-5 m-1">
@@ -17,7 +18,7 @@ import { LocalForm,Control,Errors} from 'react-redux-form';
                   
             );
     }
-    function RenderComments({comment}){
+    function RenderComments({comment,addComment,dishId}){
         if(comment != null)
         {
             const comms =comment.map((comment) => {
@@ -32,11 +33,12 @@ import { LocalForm,Control,Errors} from 'react-redux-form';
                 );
             });
             return(
-                <div>
+                <div className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
                     {comms}
+                    <CommentForm dishId={dishId} addComment={addComment}/>
                 </div>
-
+                
             );        
         }
         else{
@@ -63,7 +65,8 @@ import { LocalForm,Control,Errors} from 'react-redux-form';
         handleSubmit(values)
         {
         
-            alert("current state is:" + JSON.stringify(values));
+            this.toggleModal();
+            this.props.addComment(this.props.dishId,values.rating,values.author,values.comment);
         }
 
         render(){
@@ -87,8 +90,8 @@ import { LocalForm,Control,Errors} from 'react-redux-form';
                                     </Control.select>
                                 </Row>
                                 <Row className="form-group">
-                                    <Label htmlFor="name">Your Name</Label>
-                                    <Control.text model=".name" id="name" name="name" className="form-control"
+                                    <Label htmlFor="author">Your Name</Label>
+                                    <Control.text model=".author" id="author" name="author" className="form-control"
                                     validators={{required,minLength:minLength(3),maxLength:maxLength(15)}} 
                                     />
                                     <Errors 
@@ -103,11 +106,12 @@ import { LocalForm,Control,Errors} from 'react-redux-form';
                                     />
                                 </Row>
                                 <Row className="form-group">
-                                    <Label htmlFor="feedback">Comment</Label>
-                                    <Control.textarea model=".message" id="feedback" name="massage" rows="6" className="form-control"/>
+                                    <Label htmlFor="comment">Comment</Label>
+                                    <Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control"/>
                                 </Row>
-
+                                <Row className="form-group">
                                 <Button type="submit" value="submit" color="primary">Submit </Button>
+                                </Row>
                             </LocalForm>
                         </ModalBody>
                 </Modal>
@@ -137,10 +141,7 @@ import { LocalForm,Control,Errors} from 'react-redux-form';
                 </div>
                 <div className="row">
                     <RenderDish dish={props.dish}/>
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderComments comment={props.comments}/>
-                        <CommentForm/>
-                    </div>
+                    <RenderComments comment={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
                 </div>
 
             </div>
