@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import {Card,CardBody,CardImg,CardText,CardTitle,BreadcrumbItem,Breadcrumb, Button,Modal,ModalBody,ModalHeader,Row,Label,Input} from "reactstrap";
+import {Card,CardBody,CardImg,CardText,CardTitle,BreadcrumbItem,Breadcrumb, Button,Modal,ModalBody,ModalHeader,Row,Label} from "reactstrap";
 import {Link} from 'react-router-dom';
-import { render } from '@testing-library/react';
 import { LocalForm,Control,Errors} from 'react-redux-form';
-import { addComment } from '../redux/ActionCreaters';
 import {Loading} from './LoadingComponent';
     function RenderDish({dish}){
             return(
